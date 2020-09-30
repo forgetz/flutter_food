@@ -5,6 +5,7 @@ import 'package:flutterapp/models/user_model.dart';
 import 'package:flutterapp/screens/main_rider.dart';
 import 'package:flutterapp/screens/main_shop.dart';
 import 'package:flutterapp/screens/main_user.dart';
+import 'package:flutterapp/utility/account_process.dart';
 import 'package:flutterapp/utility/normal_dialog.dart';
 
 String apiurl = 'http://developer.bangkokair.pg:16009';
@@ -20,30 +21,30 @@ Future<void> authenLoginApi(
     final status = body['status'];
     final token = body['message'];
 
-    UserModel userModel = UserModel.fromJson(body['result']);
-
-    print('token: $token');
-    print('username: ' + userModel.username);
-
     if (status == 'Completed') {
+      UserModel userModel = UserModel.fromJson(body['result']);
+
+      print('token: $token');
+      print('username: ' + userModel.username);
+
       if (userModel.type == 'R') {
-        routeToService(context, MainRider());
-      }
-      else if (userModel.type == 'S') {
-        routeToService(context, MainShop());
-      }
-      else {
-        routeToService(context, MainUser());
+        routeToService(context, MainRider(), userModel);
+      } else if (userModel.type == 'S') {
+        routeToService(context, MainShop(), userModel);
+      } else {
+        routeToService(context, MainUser(), userModel);
       }
     } else {
       normalDialog(context, 'Username or password incorrect');
     }
-  } catch (e) {}
+  } catch (e) {
+    //print('error: ' + e);
+  }
 }
 
-void routeToService(BuildContext context, Widget myWidget) {
-
-  
+Future<Null> routeToService(
+    BuildContext context, Widget myWidget, UserModel userModel) async {
+  saveUserModel(userModel);
 
   MaterialPageRoute route = MaterialPageRoute(
     builder: (context) => myWidget,

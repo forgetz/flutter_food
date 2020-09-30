@@ -28,5 +28,14 @@ class MyStyle {
     );
   }
 
+  BoxDecoration myBoxDecoration(String imageName) {
+    return BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('images/$imageName'),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
   MyStyle();
 }
