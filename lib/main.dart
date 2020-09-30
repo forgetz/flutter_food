@@ -11,6 +11,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    print('run main.dart');
+
     return MaterialApp(
       title: 'Flutter App',
       home: Home(),

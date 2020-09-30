@@ -10,6 +10,12 @@ class MyStyle {
             fontSize: 24.0, color: darkColor, fontWeight: FontWeight.bold),
       );
 
+  Text showTitleH2(String title) => Text(
+        title,
+        style: TextStyle(
+            fontSize: 18.0, color: darkColor, fontWeight: FontWeight.bold),
+      );
+
   SizedBox mySizedBox() => SizedBox(
         width: 8.0,
         height: 16.0,

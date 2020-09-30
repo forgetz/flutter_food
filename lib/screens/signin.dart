@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/services/apiservices.dart';
 import 'package:flutterapp/utility/my_style.dart';
+import 'package:flutterapp/utility/normal_dialog.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -7,6 +9,10 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
+  String username, password;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +54,18 @@ class _SignInState extends State<SignIn> {
         width: 250.0,
         child: RaisedButton(
           color: MyStyle().darkColor,
-          onPressed: () {},
+          onPressed: () {
+            print('username = $username, password = $password');
+
+            if ((username?.isEmpty ?? true) ||
+            (password?.isEmpty ?? true)) {
+              normalDialog(context, 'Please Enter All Field');
+            }
+            else {
+              print('login');
+              authenLoginApi(context, username, password);
+            }
+          },
           child: Text(
             'Login',
             style: TextStyle(color: Colors.white),
@@ -56,9 +73,11 @@ class _SignInState extends State<SignIn> {
         ),
       );
 
+
   Widget userForm() => Container(
         width: 250.0,
         child: TextField(
+          onChanged: (value) => username = value.trim(),
           decoration: InputDecoration(
             labelText: 'Username : ',
             labelStyle: TextStyle(color: MyStyle().darkColor),
@@ -77,6 +96,7 @@ class _SignInState extends State<SignIn> {
   Widget passwordForm() => Container(
         width: 250.0,
         child: TextField(
+          onChanged: (value) => password = value.trim(),
           obscureText: true,
           decoration: InputDecoration(
             labelText: 'Password : ',
