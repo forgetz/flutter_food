@@ -21,6 +21,21 @@ class MyStyle {
         height: 16.0,
       );
 
+  Widget titleCenter(BuildContext context, String text) {
+    return Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.5,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
   Container showLogo() {
     return Container(
       width: 120.0,
