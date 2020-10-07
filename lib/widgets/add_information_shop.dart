@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/utility/my_style.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class AddInformationShop extends StatefulWidget {
   @override
@@ -15,6 +16,25 @@ class _AddInformationShopState extends State<AddInformationShop> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    findLatLng();
+  }
+
+  Future<Null> findLatLng() async {
+    LocationData locationData = await findLocationData();
+    setState(() {
+      lat = locationData.latitude;
+      lng = locationData.longitude;
+    });
+    print('lat: $lat lng: $lng');
+  }
+
+  Future<LocationData> findLocationData() async {
+    Location location = Location();
+    try {
+      return location.getLocation();
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
@@ -35,7 +55,7 @@ class _AddInformationShopState extends State<AddInformationShop> {
             MyStyle().mySizedBox(),
             groupImage(),
             MyStyle().mySizedBox(),
-            showMap(),
+            lat == null ? MyStyle().showProgress() : showMap(),
             MyStyle().mySizedBox(),
             saveButton(),
           ],
@@ -65,8 +85,19 @@ class _AddInformationShopState extends State<AddInformationShop> {
     );
   }
 
+  Set<Marker> myMarker() {
+    return <Marker>[
+      Marker(
+        markerId: MarkerId('MyMarker'),
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(
+            title: 'MyMarker', snippet: 'ละติจูด = $lat, ลองติจูด = $lng'),
+      )
+    ].toSet();
+  }
+
   Container showMap() {
-    LatLng latLng = LatLng(13.726626, 100.509765);
+    LatLng latLng = LatLng(lat, lng);
     CameraPosition cameraPosition = CameraPosition(
       target: latLng,
       zoom: 16.0,
@@ -78,6 +109,7 @@ class _AddInformationShopState extends State<AddInformationShop> {
         initialCameraPosition: cameraPosition,
         mapType: MapType.normal,
         onMapCreated: (controller) {},
+        markers: myMarker(),
       ),
     );
   }

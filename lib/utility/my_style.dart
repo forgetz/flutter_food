@@ -4,6 +4,12 @@ class MyStyle {
   Color darkColor = Colors.blue.shade900;
   Color primaryColor = Colors.green;
 
+  Widget showProgress() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
   Text showTitle(String title) => Text(
         title,
         style: TextStyle(
