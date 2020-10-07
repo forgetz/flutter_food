@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/utility/my_style.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AddInformationShop extends StatefulWidget {
   @override
@@ -7,6 +8,15 @@ class AddInformationShop extends StatefulWidget {
 }
 
 class _AddInformationShopState extends State<AddInformationShop> {
+  // field
+  double lat, lng;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +33,51 @@ class _AddInformationShopState extends State<AddInformationShop> {
             MyStyle().mySizedBox(),
             phoneForm(),
             MyStyle().mySizedBox(),
-            groupImage()
+            groupImage(),
+            MyStyle().mySizedBox(),
+            showMap(),
+            MyStyle().mySizedBox(),
+            saveButton(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget saveButton() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 50.0,
+      child: RaisedButton.icon(
+        color: MyStyle().primaryColor,
+        onPressed: () {},
+        icon: Icon(
+          Icons.save,
+          color: Colors.white,
+        ),
+        label: Text(
+          'Save Information',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container showMap() {
+    LatLng latLng = LatLng(13.726626, 100.509765);
+    CameraPosition cameraPosition = CameraPosition(
+      target: latLng,
+      zoom: 16.0,
+    );
+
+    return Container(
+      height: 300.0,
+      child: GoogleMap(
+        initialCameraPosition: cameraPosition,
+        mapType: MapType.normal,
+        onMapCreated: (controller) {},
       ),
     );
   }
