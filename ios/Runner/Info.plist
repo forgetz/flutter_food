@@ -47,5 +47,12 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>this application required access to your location<string/>
 
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>this application required access to your photo<string/>
+	<key>NSCameraUsageDescription</key>
+	<string>this application required access to your camera<string/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>this application required access to your microphone<string/>
+
 </dict>
 </plist>

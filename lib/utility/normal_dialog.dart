@@ -4,7 +4,7 @@ import 'package:flutterapp/utility/my_style.dart';
 Future<void> normalDialog(BuildContext context, String message) async {
   showDialog(
     context: context,
-    builder: (context) => SimpleDialog(
+    builder: (_) => SimpleDialog(
       title: Text(message),
       children: <Widget>[
         Row(
@@ -17,6 +17,38 @@ Future<void> normalDialog(BuildContext context, String message) async {
                   style: TextStyle(color: MyStyle().primaryColor),
                 )),
           ],
+        )
+      ],
+    ),
+  );
+}
+
+Future<void> alertDialog(
+    BuildContext context, String title, String content) async {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => AlertDialog(
+      title: Text(title),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: [
+            Text(content),
+          ],
+        ),
+      ),
+      actions: [
+        FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('CANCEL'),
+        ),
+        FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('SAVE'),
         )
       ],
     ),

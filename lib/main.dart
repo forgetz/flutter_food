@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     print('run main.dart');
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.blueGrey),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+        accentColor: Colors.lightBlue,
+      ),
       title: 'Flutter App',
       home: Home(),
     );
